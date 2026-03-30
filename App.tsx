@@ -1,45 +1,38 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { StatusBar, useColorScheme } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import LoginView from './src/views/auth/LoginView';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import AppNavigation from './src/navigation/AppNavigation';
+import { useEffect } from 'react';
+import BootSplash from "react-native-bootsplash";
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+const queryCliente = new QueryClient();
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
+  useEffect(() => {
+    // Esta función se ejecuta cuando el componente App se monta
+    const init = async () => {
+      // Aquí podrías cargar datos de tu base de datos o verificar sesión
+      // Por ahora, simplemente ocultamos el splash
+    };
+
+    init().finally(async () => {
+      // Ocultamos el splash con un efecto de fade (desvanecido)
+      await BootSplash.hide({ fade: true });
+      console.log("Bootsplash listo y oculto");
+    });
+  }, []);
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
+
+    <QueryClientProvider client={queryCliente}>
+      <SafeAreaProvider>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <AppNavigation />
+      </SafeAreaProvider>
+    </QueryClientProvider>
   );
 }
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;

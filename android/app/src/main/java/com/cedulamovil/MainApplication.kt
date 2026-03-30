@@ -1,4 +1,4 @@
-package com.cedulamovil
+package org.universalworldtechnologyec.cedulamovil
 
 import android.app.Application
 import com.facebook.react.PackageList

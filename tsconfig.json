@@ -3,6 +3,6 @@
   "compilerOptions": {
     "types": ["jest"]
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "src/views/profile/CentroAyudaView.tsx"],
   "exclude": ["**/node_modules", "**/Pods"]
 }
