@@ -30,3 +30,22 @@ export interface RegisterResponse {
   access_token: string,
   token_type: string
 }
+
+export interface CodigoInterface {
+  email: string;
+}
+
+export interface CodigoResponse {
+  message: string;
+}
+
+export interface RecuperarPasswordInterface {
+  codigo:string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}
+
+export interface RecuperarPasswordResponse {
+  message: string;
+}

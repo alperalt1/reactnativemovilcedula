@@ -43,7 +43,6 @@ export const useLoginMutation = () => {
         console.log("Error del servidor:", serverMessage, validationErrors);
         Alert.alert("Error de validación", serverMessage);
       }
-      // 2. Error de Red (Aquí es donde cae tu error actual de la IP)
       else if (error.request) {
         console.log("Error de conexión (Network Error):", error.message);
         Alert.alert(
@@ -51,7 +50,6 @@ export const useLoginMutation = () => {
           "No se pudo conectar con el servidor. Verifica que tengas internet o que la configuración HTTP sea correcta."
         );
       }
-      // 3. Otros errores
       else {
         Alert.alert("Error", error.message);
       }

@@ -12,4 +12,7 @@ export type NavigationInterface = {
   CentroAyudaView: undefined;
   PoliticasPrivacidadView: undefined;
   TerminosCondicionesView: undefined;
+  EnviarCorreoRecuperacionView: undefined;
+  RecuperarPasswordView: undefined;
+
 }

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { FlatList, StyleSheet, Text, View, ActivityIndicator, TouchableOpacity, Button } from 'react-native';
 import AuthLayout from '../../components/AuthLayout';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
@@ -19,7 +19,13 @@ const HistoryView = () => {
   const setCedula = useConsultaStore((state) => state.setCedula);
   const { isLoading, refetch, isFetching } = useHistoryMutation();
   const history = useHistoryStore((state) => state.history);
+  const [isManualRefresh, setIsManualRefresh] = useState(false);
 
+  const handleManualRefresh = async () => {
+    setIsManualRefresh(true);
+    await refetch();
+    setIsManualRefresh(false);
+  };
   const manejarPresionItem = (item: any) => {
     setCedula(item.resultado_json);
     navigation.navigate('CedulaView', { title: 'Detalle de Consulta' });
@@ -72,8 +78,8 @@ const HistoryView = () => {
           data={history}
           contentContainerStyle={styles.listContainer}
           keyExtractor={(item) => item.id.toString()}
-          refreshing={isFetching}
-          onRefresh={refetch}
+          refreshing={isManualRefresh}
+          onRefresh={handleManualRefresh}
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.card}
@@ -116,13 +122,13 @@ export default HistoryView;
 
 const styles = StyleSheet.create({
   download: {
-    alignSelf: 'center', 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    borderRadius: scale(20), 
-    backgroundColor: Colors.secondary, 
-    height: verticalScale(30), 
-    paddingHorizontal: scale(12), 
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: scale(20),
+    backgroundColor: Colors.secondary,
+    height: verticalScale(30),
+    paddingHorizontal: scale(12),
     marginBottom: verticalScale(10)
   },
   mainContainer: {

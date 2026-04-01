@@ -96,7 +96,7 @@ const LoginView = () => {
         showpassword={true}
         autoCapitalize='none'
       />
-      <TouchableOpacity activeOpacity={0.1} style={{ alignSelf: 'flex-end', paddingVertical: verticalScale(5), marginBottom: verticalScale(5) }}>
+      <TouchableOpacity onPress={()=>navigation.navigate('EnviarCorreoRecuperacionView')} activeOpacity={0.1} style={{ alignSelf: 'flex-end', paddingVertical: verticalScale(5), marginBottom: verticalScale(5) }}>
         <Text
           style={{
             fontSize: moderateScale(13),
@@ -112,6 +112,7 @@ const LoginView = () => {
       <ButtonCustomAuth
         label='Iniciar Sesión'
         onPress={handleEnviarLogin}
+        loading={isPending}
         disabled={isPending}
       />
       <View style={{

@@ -11,6 +11,8 @@ import CedulaView from '../views/history/CedulaView';
 import TerminosCondicionesView from '../views/profile/TerminosCondicionesView';
 import CentroAyudaView from '../views/profile/CentroAyudaView';
 import PoliticasPrivacidadView from '../views/profile/PoliticasPrivacidadView';
+import RecuperarPasswordView from '../views/auth/RecuperarPassword';
+import EnviarCorreoRecuperacionView from '../views/auth/EnviarCorreoRecuperacion';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +40,8 @@ const AppNavigation = () => {
             <Stack.Group>
               <Stack.Screen name='LoginView' component={LoginView} options={{ headerShown: false }} />
               <Stack.Screen name='RegistrarseView' component={RegistrarseView} options={{ headerShown: false }} />
+              <Stack.Screen name='RecuperarPasswordView' component={RecuperarPasswordView} options={{ headerShown: false }} />
+              <Stack.Screen name='EnviarCorreoRecuperacionView' component={EnviarCorreoRecuperacionView} options={{ headerShown: false }} />
             </Stack.Group>
           )
         }

@@ -16,22 +16,31 @@ export const downloadExcel = async () => {
     const { dirs } = ReactNativeBlobUtil.fs;
 
     const fileName = `Historial_${Date.now()}.xlsx`;
-    const path = `${Platform.OS === 'ios' ? dirs.DocumentDir : dirs.DownloadDir}/${fileName}`;
-    const res = await ReactNativeBlobUtil.config({
-      fileCache: true,
-      path: path,
-      addAndroidDownloads: {
-        useDownloadManager: true,
-        notification: true,
-        title: 'Historial de Cédulas',
-        mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        description: 'Generando reporte Excel...'
+    const path = Platform.OS === 'ios' ? `${dirs.DocumentDir}/${fileName}` : `${dirs.DownloadDir}/${fileName}`;
+    const configOptions = Platform.select({
+      ios: {
+        fileCache: true,
+        path: path,
+      },
+      android: {
+        fileCache: true,
+        addAndroidDownloads: {
+          useDownloadManager: true,
+          notification: true,
+          path: path, 
+          title: fileName,
+          mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          description: 'Descargando historial de cédulas...',
+          mediaScannable: true, 
+        }
       }
-    })
-    .fetch('GET', `${Urls.development}/exportar`, {
-      Authorization: `Bearer ${token}`,
-      'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     });
+
+    const res = await ReactNativeBlobUtil.config(configOptions!)
+      .fetch('GET', `${Urls.development}/exportar`, {
+        Authorization: `Bearer ${token}`,
+        'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
 
     if (Platform.OS === 'ios') {
       ReactNativeBlobUtil.ios.previewDocument(res.path());

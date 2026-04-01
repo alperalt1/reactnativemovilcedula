@@ -99,6 +99,7 @@ const RegistrarseView = () => {
       <ButtonCustomAuth
         label='Registrarse'
         onPress={handleEnviarLogin}
+        loading={isPending}
         disabled={isPending}
       />
       <View style={{
