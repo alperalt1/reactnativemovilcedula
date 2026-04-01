@@ -27,7 +27,7 @@ export const downloadExcel = async () => {
         addAndroidDownloads: {
           useDownloadManager: true,
           notification: true,
-          path: path, 
+          path: `${dirs.DownloadDir}/${fileName}`, 
           title: fileName,
           mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
           description: 'Descargando historial de cédulas...',
@@ -37,7 +37,7 @@ export const downloadExcel = async () => {
     });
 
     const res = await ReactNativeBlobUtil.config(configOptions!)
-      .fetch('GET', `${Urls.development}/exportar`, {
+      .fetch('GET', `${Urls.api}/exportar`, {
         Authorization: `Bearer ${token}`,
         'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });

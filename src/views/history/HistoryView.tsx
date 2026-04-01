@@ -18,6 +18,7 @@ const HistoryView = () => {
   const navigation = useNavigation<NativeStackNavigationProp<NavigationInterface>>();
   const setCedula = useConsultaStore((state) => state.setCedula);
   const { isLoading, refetch, isFetching } = useHistoryMutation();
+  const [isDownloading, setIsDownloading] = useState(false);
   const history = useHistoryStore((state) => state.history);
   const [isManualRefresh, setIsManualRefresh] = useState(false);
 
@@ -62,16 +63,41 @@ const HistoryView = () => {
   }
 
   const handleDownload = async () => {
-    await downloadExcel();
+    if (isDownloading) return;
+    try {
+      setIsDownloading(true);
+      await downloadExcel();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsDownloading(false);
+    }
   }
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={{ flex: 1 }}>
         <HeaderComponent title={'Historial de Consultas'} />
         <View >
-          <TouchableOpacity onPress={handleDownload} style={styles.download}>
-            <Text style={{ fontSize: scale(15), color: Colors.background }}>Descargar Historial</Text>
-            <Icon name="download" size={scale(20)} color={Colors.background} />
+          <TouchableOpacity
+            disabled={isDownloading}
+            onPress={handleDownload}
+            style={[
+              styles.download,
+              isDownloading && { opacity: 0.6, backgroundColor: '#999' }
+            ]}>
+            {isDownloading ? (
+              <>
+                <Text style={{ fontSize: scale(14), color: Colors.background, marginRight: 10 }}>
+                  Generando reporte...
+                </Text>
+                <ActivityIndicator size="small" color={Colors.background} />
+              </>
+            ) : (
+              <>
+                <Text style={{ fontSize: scale(15), color: Colors.background }}>Descargar Historial</Text>
+                <Icon name="download" size={scale(20)} color={Colors.background} style={{ marginLeft: 8 }} />
+              </>
+            )}
           </TouchableOpacity>
         </View>
         <FlatList

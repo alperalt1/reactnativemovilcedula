@@ -6,7 +6,7 @@ import { HistorialConsulta } from "../../interface/history/HistoryInterface";
 import { Urls } from "../../constants/Urls";
 
 const api = axios.create({
-  baseURL: Urls.development,
+  baseURL: Urls.api,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
