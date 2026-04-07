@@ -4,7 +4,7 @@ import { ApiResponse } from "../../interface/ApiResponse";
 import { Urls } from "../../constants/Urls";
 
 const api = axios.create({
-  baseURL: Urls.api,
+  baseURL: Urls.producction,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

@@ -37,7 +37,7 @@ export const downloadExcel = async () => {
     });
 
     const res = await ReactNativeBlobUtil.config(configOptions!)
-      .fetch('GET', `${Urls.api}/exportar`, {
+      .fetch('GET', `${Urls.producction}/exportar`, {
         Authorization: `Bearer ${token}`,
         'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });

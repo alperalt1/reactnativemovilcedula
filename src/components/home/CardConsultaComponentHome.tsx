@@ -40,6 +40,7 @@ const CardConsultaComponentHome = ({ manejadorTexto, TextoValue, manejadorBuscar
           label='Buscar Ahora'
           onPress={manejadorBuscar}
           disabled={isLoading}
+          loading={isLoading}
         />
       </View>
 

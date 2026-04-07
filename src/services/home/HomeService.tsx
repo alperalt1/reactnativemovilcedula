@@ -5,7 +5,7 @@ import { ApiResponse } from "../../interface/ApiResponse";
 import { Urls } from "../../constants/Urls";
 
 const api = axios.create({
-  baseURL: Urls.api,
+  baseURL: Urls.producction,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import AuthLayout from '../../components/AuthLayout'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
@@ -42,6 +42,10 @@ const HomeView = () => {
   }
 
   const handleBuscarCedula = () => {
+    if(cedula == ''){
+      Alert.alert('Error','Debe ingresar el numero de cedula');
+      return;
+    }
     mutation.mutate({
       identificacion: cedula
     } as Consultar);
